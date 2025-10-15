@@ -1,10 +1,10 @@
 app:
-  name: AppzMongoDB
-  code: AMDB
-  notify: appz@cloudbourne.co
+  name: mongodb
+  code: MONGODB
+ # notify: aramanan@ecloudcontrol.com
 
 build:
-  version: 4.4
+  version: 6.0
   env: DEV
   build_file: none
   output_files: output/*.zip
@@ -16,6 +16,7 @@ deploy:
   replicas: 3
   port:
   - 27017
+  - 9216
 
 volumes:
 - claim: mongo-data
@@ -23,7 +24,45 @@ volumes:
   name: mongo-data
   size: 5Gi
   mode: ReadWriteOnce
+  matchLabels: false
+  
+- claim: mongo-keys
+  mount: /appz/keys
+  name: mongo-keys
+  size: 1Gi
+  mode: ReadWriteOnce
+  matchLabels: false
+  
+- claim: mongo-backup
+  mount: /appz/backup
+  name: mongo-backup
+  size: 5Gi
+  mode: ReadWriteOnce
+  matchLabels: false
   
 properties:
-  revision : 09
-  
+  DB_USER_ADMIN: admin
+  DB_USER_ADMIN_PASSWORD: 
+    vault: DB_USER_ADMIN_PASSWORD
+  MONGO_USER_PASSWORD: 
+    vault: MONGO_USER_PASSWORD
+  AUTH_KEY: 
+    vault: AUTH_KEY
+  ENCRYPTION_KEY:
+    vault: ENCRYPTION_KEY
+  #AWS_ACCESS_KEY_ID:
+    #vault: AWS_ACCESS_KEY_ID
+  #AWS_SECRET_ACCESS_KEY:
+    #vault: AWS_SECRET_ACCESS_KEY
+  #AWS_DEFAULT_REGION: us-east-2
+  #BACKUPFILE: ksfetest,newdb
+  REPLICATION: 2
+  MASTER_ENABLE: "no"
+  #OPLOG_SIZE: 2048
+  AUTH_ENABLE: 1
+  #S3_BUCKET: incre-backup-ksfe
+  MONGODB_HOST: 127.0.0.1
+  MONGODB_PORT: 27017
+  #MONGO_BACKUP_TIME: 2
+  #MONGO_BACKUP_DAYS: 7
+  revision : 5
