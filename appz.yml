@@ -11,7 +11,7 @@ build:
   image_template: mongo-6.0
   
 deploy:
-  context: alpha/DEV
+  context: nithinc-cloud/DEV
   type: statefulset
   replicas: 1
   port:
@@ -25,4 +25,4 @@ volumes:
   mode: ReadWriteOnce
   
 properties:
-  revision : 05
+  revision : 06
