@@ -8,7 +8,7 @@ build:
   env: DEV
   build_file: none
   output_files: output/*.zip
-  image_template: mongo-4.4
+  image_template: mongo-6.0
   
 deploy:
   context: alpha/DEV
@@ -25,4 +25,4 @@ volumes:
   mode: ReadWriteOnce
   
 properties:
-  revision : 04
+  revision : 05
